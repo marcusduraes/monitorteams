@@ -40,7 +40,7 @@ def check_teams_status():
     print(response.status_code)
     if response.status_code == 200:
         # Verifica se a página contém uma mensagem indicando problemas no serviço
-        if "User reports indicate problems at Teams" in response.text:
+        if "User reports indicate problems at Microsoft Teams" in response.text:
             return False
     return True
 
