@@ -71,9 +71,13 @@ def main():
         now = datetime.now()
 
         if now.hour >= 19 or now.hour < 7:
-            # Definir a hora de destino como 6 da manhã do dia seguinte
-            target_date = datetime(now.year, now.month, now.day) + timedelta(days=1)
-            target_date = target_date.replace(hour=6, minute=0, second=0, microsecond=0)
+
+            target_date = datetime(now.year, now.month, now.day)
+            if now.hour <= 23:
+                # Definir a hora de destino como 7 da manhã do dia seguinte
+                target_date = target_date + timedelta(days=1)
+
+            target_date = target_date.replace(hour=7, minute=0, second=0, microsecond=0)
             time_left = target_date - now
 
             time.sleep(time_left.total_seconds())
@@ -86,4 +90,4 @@ def main():
 
 
 if __name__ == "__main__":
-    send_email_alert()
+    main()
