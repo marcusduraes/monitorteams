@@ -6,6 +6,7 @@ import os
 import time
 from datetime import datetime, timedelta
 from dotenv import load_dotenv
+import pytz
 
 # Carregar variáveis de ambiente do arquivo .env
 load_dotenv()
@@ -67,15 +68,18 @@ def send_email_alert():
 
 def main():
     while True:
+        # Definir o fuso horário
+        timezone = pytz.timezone('America/Sao_Paulo')
+
         # Obter a hora atual
-        now = datetime.now()
+        now = datetime.now(timezone)
 
         if now.hour >= 19 or now.hour < 7:
 
             target_date = datetime(now.year, now.month, now.day)
             if now.hour <= 23:
                 # Definir a hora de destino como 7 da manhã do dia seguinte
-                target_date = target_date + timedelta(days=1)
+                target_date += timedelta(days=1)
 
             target_date = target_date.replace(hour=7, minute=0, second=0, microsecond=0)
             time_left = target_date - now
